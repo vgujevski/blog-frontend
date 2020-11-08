@@ -1,0 +1,52 @@
+* {
+  box-sizing: border-box;
+}
+
+// applied to all tags
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  margin: 0;
+  font-size: $m-size;
+  line-height: 1.6;
+}
+
+h1 {
+  font-size: 2.2rem;
+  padding: 0rem;
+}
+
+h2 {
+  font-size: 2rem;
+  padding: 0rem;
+}
+
+h3 {
+  font-size: 1.8rem;
+  padding: 0rem;
+}
+
+button {
+  cursor: pointer;
+}
+
+
+
+select {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: default;
+}
+
+.is-active {
+  font-weight: bold;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
