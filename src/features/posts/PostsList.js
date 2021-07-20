@@ -10,7 +10,7 @@ export const PostsList = () => {
 
   const isAuthenticated = useSelector(state => !!state.auth.user)
 
-  //TODO display add post button is user is authenticated
+  //TODO display add post button when user is authenticated
   //TODO display message that user has to be authenticated in order to be able to post
 
   const renderNewPostLink = () => (
