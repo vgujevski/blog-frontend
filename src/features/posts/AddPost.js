@@ -1,33 +1,35 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import { v4 as uuid } from 'uuid'
 
-import EditorExample from './Editor'
-import { addPost } from '../../firebase/database'
+import { AddPostForm } from './AddPostForm'
+import { singlePostAdded } from './postsSlice'
 
 export const AddPost = () => {
 
 	const user = useSelector(state => state.auth.user)
 	const history = useHistory()
-	const postedOn = new Date()
+  const dispatch = useDispatch()
 
-	const createNewPost = (post) => {
-		//console.log(`addPost called with: ${JSON.stringify(post, null, 2)}`);
+	const postedOn = new Date().toISOString()
+
+	const savePost = (post) => {
 		const newPost = {
+			postId: uuid(),
 			userId: user.uid,
 			displayName: user.displayName,
-			content: post,
+			title: post.title,
+			content: post.content,
 			postedOn
 		}
-		addPost(newPost)
+		dispatch(singlePostAdded(newPost))
 		history.push(`/`)
 	}
 
 	return (
 		<div className="content-container">
-			<EditorExample
-				onAddPost={createNewPost}
-			/>
+			<AddPostForm onSavePost={savePost}/>
 		</div>
 	)
 }

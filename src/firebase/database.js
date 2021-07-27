@@ -18,8 +18,13 @@ const findPostById = () => {
   //TODO implement
 }
 
-const getAllPosts = () => {
-  //TODO implement
+export const  getAllPosts = async () => {
+  console.log('getAllPosts called');
+
+  const snapshot = await database.collection(POSTS).get()
+  const posts = snapshot.docs.map(doc => doc.data())
+  console.log(JSON.stringify(posts, null, 2));
+  return posts
 }
 
 const getAllPostsByAuthor = () => {

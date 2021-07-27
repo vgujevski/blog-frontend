@@ -6,6 +6,8 @@ import { PrivateRoute } from './PrivateRoute'
 import { Header } from '../components/Header'
 import { PostsList } from '../features/posts/PostsList'
 import { AddPost } from '../features/posts/AddPost'
+import { EditPostForm } from '../features/posts/EditPostForm'
+import { SinglePostPage } from '../features/posts/SinglePost'
 import { NotFoundPage } from '../components/NotFoundPage'
 
 export const history = createBrowserHistory()
@@ -18,7 +20,9 @@ export const AppRouter = () => {
         <Header />
         <Switch>
           <Route exact={true} path="/" component={PostsList} />
-          <PrivateRoute exact={true} path="/add-post" component={AddPost}/>
+          <Route exact path="/posts/:postId" component={SinglePostPage} />
+          <PrivateRoute exact={true} path="/addPost" component={AddPost}/>
+          <PrivateRoute exact={true} path="/editPost/:postId" component={EditPostForm}/>
           <Route component={NotFoundPage} />  
         </Switch>
       </div>
