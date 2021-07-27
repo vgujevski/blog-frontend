@@ -1,14 +1,21 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import { selectAllPosts } from './postsSlice'
+import { fetchPosts } from './postsSlice'
 
 export const PostsList = () => {
+  const dispatch = useDispatch()
   const isAuthenticated = useSelector(state => !!state.auth.user)
   const posts = useSelector(selectAllPosts)
+  const postStatus = useSelector(state => state.posts.status)
 
-  //TODO display add post button when user is authenticated
+  useEffect(() => {
+    if(postStatus === 'idle') {
+      dispatch(fetchPosts())
+    }
+  }, [postStatus, dispatch])
   //TODO display message that user has to be authenticated in order to be able to post
 
   const renderNewPostLink = () => (

@@ -12,7 +12,7 @@ export const AddPost = () => {
 	const history = useHistory()
   const dispatch = useDispatch()
 
-	const postedOn = new Date().toISOString()
+	const postedOn = new Date().toString()
 
 	const savePost = (post) => {
 		const newPost = {

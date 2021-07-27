@@ -9,7 +9,7 @@ import { selectLoggedInUser } from '../auth/authSlice'
 // TODO display Edit button is logged in user is the post author
 export const SinglePostPage = ({ match }) => {
   const { postId } = match.params
-  const user = useSelector(selectLoggedInUser())
+  const user = useSelector(state => selectLoggedInUser(state))
 
   const post = useSelector(state => selectPostById(state, postId))
 
