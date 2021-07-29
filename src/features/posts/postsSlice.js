@@ -27,7 +27,7 @@ const postsSlice = createSlice({
     postUpdated(state, action) {
       const { postId, title, content } = action.payload
       console.log(`payload: ${JSON.stringify(action.payload, null, 2)}`);
-      const existingPost = state.find(post => post.postId === postId)
+      const existingPost = state.items.find(post => post.postId === postId)
       if (existingPost) {
         existingPost.title = title
         existingPost.content = content
