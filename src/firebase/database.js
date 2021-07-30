@@ -1,17 +1,13 @@
 import { database } from '../firebase/config'
 
 const POSTS = 'posts'
+const USERS = 'users'
 
-export const addPost = (post) => {
+export const addPost = async (post) => {
   console.log('addPost Database called ', JSON.stringify(post, null, 2));
 
-  database.collection(POSTS).add(post)
-    .then((docRef) => {
-      console.log("Document written with ID: ", docRef.id);
-    })
-    .catch((error) => {
-      console.error("Error adding document: ", error);
-    });
+  const docRef = await database.collection(POSTS).doc(post.postId).set(post)
+  return docRef
 }
 
 const findPostById = () => {
@@ -25,19 +21,32 @@ export const  getAllPosts = async () => {
   const posts = snapshot.docs.map(doc => {
     return {postId: doc.id, ...doc.data()}
   })
-  console.log(JSON.stringify(posts, null, 2));
+
   return posts
 }
 
-const getAllPostsByAuthor = () => {
-  //TODO implement
-}
+// const getAllPostsByAuthor = () => {
+//   //TODO implement
+// }
 
-const editPost = () => {
-  //TODO implement
-}
+// const editPost = () => {
+//   //TODO implement
+// }
 
-const deletePost = () => {
-  //TODO implement
+// const deletePost = () => {
+//   //TODO implement
+// }
+
+// Authors
+
+export const getAllUsers = async () => {
+  console.log('getAllPosts called');
+
+  const snapshot = await database.collection(USERS).get()
+  const users = snapshot.docs.map(doc => {
+    return {userId: doc.id, ...doc.data()}
+  })
+
+  return users
 }
 

@@ -4,7 +4,8 @@ import { useHistory } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 
 import { AddPostForm } from './AddPostForm'
-import { singlePostAdded } from './postsSlice'
+import { addNewPost } from './postsSlice'
+//import { singlePostAdded } from './postsSlice'
 
 export const AddPost = () => {
 
@@ -23,7 +24,7 @@ export const AddPost = () => {
 			content: post.content,
 			postedOn
 		}
-		dispatch(singlePostAdded(newPost))
+		dispatch(addNewPost(newPost))
 		history.push(`/`)
 	}
 

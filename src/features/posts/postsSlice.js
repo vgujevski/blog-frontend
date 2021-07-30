@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { getAllPosts } from '../../firebase/database';
+import { getAllPosts, addPost } from '../../firebase/database';
+
 
 const initialState = {
   items: [],
@@ -8,15 +9,19 @@ const initialState = {
 }
 
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
-  const response = await getAllPosts()
-  console.log('fetchPosts called, response: ', JSON.stringify(response, null, 2));
-  return response
+  const posts = await getAllPosts()
+  return posts
+})
+
+export const addNewPost = createAsyncThunk('posts/addPost', async (newPost) => {
+  addPost(newPost)
+  return newPost
 })
 
 const postsSlice = createSlice({
   name: 'posts',
   initialState: initialState,
-  reducers : {
+  reducers: {
     postsAdded(state, action) {
       console.log('addPosts dispatched', JSON.stringify(action));
       return action.payload
@@ -45,6 +50,9 @@ const postsSlice = createSlice({
     [fetchPosts.rejected]: (state, action) => {
       state.status = 'failed'
       state.error = action.error.message
+    },
+    [addNewPost.fulfilled]: (state, action) => {
+      state.items.push(action.payload)
     }
   }
 })
@@ -55,5 +63,5 @@ export default postsSlice.reducer
 
 export const selectAllPosts = state => state.posts.items
 
-export const selectPostById = (state, postId) => 
+export const selectPostById = (state, postId) =>
   state.posts.items.find(post => post.postId === postId)

@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { AppRouter } from './routers/AppRouter'
 import { firebase } from './firebase/config'
 import { userLoggedIn, userLoggedOut } from './features/auth/authSlice'
+import { fetchUsers } from './features/users/usersSlice'
 
 export const App = () => {
   const dispatch = useDispatch()
@@ -19,6 +20,8 @@ export const App = () => {
       dispatch(userLoggedOut())
     }
   })
+
+  dispatch(fetchUsers())
 
   return (
     <AppRouter />

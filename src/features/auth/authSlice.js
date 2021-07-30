@@ -9,11 +9,9 @@ const authSlice = createSlice({
   initialState: initialState,
   reducers: {
     userLoggedIn(state, action) {
-      console.log('userLogin dispatched', JSON.stringify(action));
       return action.payload
     },
     userLoggedOut(state, action) {
-      console.log('userLogout dispatched');
       return initialState
     }
   }
