@@ -23,27 +23,27 @@ export const PostsList = () => {
 
   const renderNewPostLink = () => (
     isAuthenticated ? (
-      <button className="button btn-main" onClick={() => history.push("/addPost")}>Add new post</button>
+      <button className="button btn-main new-post-btn" onClick={() => history.push("/addPost")}>Add new post</button>
     ) : (
       <div></div>
     )
   )
-  
+
   let content
 
   if (postsStatus === 'loading') {
 
-    content = <LoadingIndicator/>
+    content = <LoadingIndicator />
   } else if (postsStatus === 'succeeded') {
     // Sort posts in reverse chronological order by datetime string
     const orderedPosts = posts
-      // .slice()
-      // .sort((a, b) => b.postedOn.toISOString().localeCompare(a.postedOn.toISOString()))
+    // .slice()
+    // .sort((a, b) => b.postedOn.toISOString().localeCompare(a.postedOn.toISOString()))
 
     content = orderedPosts.map(post => (
       <div className="post-container" key={post.postId}>
         <h3>{post.title}</h3>
-        <p className="post-content">{post.content.substring(0, 200)}...</p>
+        <p className="post-content">{post.content.substring(0, 500)}...</p>
         <button className="button btn-light" onClick={() => history.push(`/posts/${post.postId}`)}>Read more</button>
       </div>
     ))
@@ -53,10 +53,13 @@ export const PostsList = () => {
 
   return (
     <div className="content-container">
-      {renderNewPostLink()}
-      <div>
-        {content}
+      <div className="posts-list-container">
+        {renderNewPostLink()}
+        <div>
+          {content}
+        </div>
       </div>
+
     </div>
   )
 }

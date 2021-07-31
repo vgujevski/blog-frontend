@@ -6,6 +6,8 @@ import { PostAuthor } from './PostAuthor'
 import { selectPostById } from './postsSlice'
 import { selectLoggedInUser } from '../auth/authSlice'
 
+import { ISOtoDDMMYY } from '../../utility/util'
+
 // TODO display Edit button is logged in user is the post author
 export const SinglePostPage = ({ match }) => {
   const history = useHistory()
@@ -36,6 +38,7 @@ export const SinglePostPage = ({ match }) => {
         <p>{post.content}</p>
         {renderEditPostButton()}
         <PostAuthor author={post.displayName}/>
+        <div>{ISOtoDDMMYY(post.postedOn)}</div>
       </div>
     </div>
   )
