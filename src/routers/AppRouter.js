@@ -3,7 +3,7 @@ import { Router, Route, Switch } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
 
 import { PrivateRoute } from './PrivateRoute'
-import { Header } from '../components/Header'
+import { Navbar } from '../components/Navbar'
 import { PostsList } from '../features/posts/PostsList'
 import { AddPost } from '../features/posts/AddPost'
 import { EditPostForm } from '../features/posts/EditPostForm'
@@ -17,7 +17,7 @@ export const AppRouter = () => {
   return (
     <Router history={history}>
       <div>
-        <Header />
+        <Navbar />
         <Switch>
           <Route exact={true} path="/" component={PostsList} />
           <Route exact path="/posts/:postId" component={SinglePostPage} />

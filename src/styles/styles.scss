@@ -4,6 +4,11 @@
 
 // components
 @import './components/content-container';
-@import './components//header';
-@import './components/text-editor';
+@import './components/navbar';
 @import './components/loading-indicator';
+@import './components/post';
+@import './components/form';
+
+// utility
+@import './utility/button';
+@import './utility/text';

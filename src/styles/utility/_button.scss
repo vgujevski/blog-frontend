@@ -1,0 +1,16 @@
+.button {
+  text-decoration: none;
+  border-radius: 0.2rem;
+  border:none;
+  padding: 0.5rem 1rem;
+}
+
+.btn-light {
+  background-color: $color-light;
+  color: $color-dark;
+}
+
+.btn-main {
+  background-color: $color-main-accent;
+  color: $color-dark;
+}

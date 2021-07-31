@@ -16,9 +16,9 @@ export const LoginButton = () => {
   }
   const renderButton = () => (
     user ?
-      <button onClick={handleLogoutClick}>Logout</button>
+      <button className="button btn-main" onClick={handleLogoutClick}>Logout</button>
       :
-      <button onClick={handleLoginClick}>Login</button>
+      <button className="button btn-main" onClick={handleLoginClick}>Login</button>
   )
 
   return (

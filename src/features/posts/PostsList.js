@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 import { LoadingIndicator } from '../../components/LoadingIndicator'
 import { selectAllPosts } from './postsSlice'
@@ -12,6 +12,7 @@ export const PostsList = () => {
   const posts = useSelector(selectAllPosts)
   const postsStatus = useSelector(state => state.posts.status)
   const postsError = useSelector(state => state.posts.error)
+  const history = useHistory()
 
   useEffect(() => {
     if (postsStatus === 'idle') {
@@ -22,7 +23,7 @@ export const PostsList = () => {
 
   const renderNewPostLink = () => (
     isAuthenticated ? (
-      <Link to="/addPost">Add new post</Link>
+      <button className="button btn-main" onClick={() => history.push("/addPost")}>Add new post</button>
     ) : (
       <div></div>
     )
@@ -40,51 +41,16 @@ export const PostsList = () => {
       // .sort((a, b) => b.postedOn.toISOString().localeCompare(a.postedOn.toISOString()))
 
     content = orderedPosts.map(post => (
-      <div className="post-excerpt" key={post.postId}>
+      <div className="post-container" key={post.postId}>
         <h3>{post.title}</h3>
-        <p className="post-content">{post.content.substring(0, 100)}</p>
-        <Link to={`/posts/${post.postId}`}>
-          View Post
-        </Link>
+        <p className="post-content">{post.content.substring(0, 200)}...</p>
+        <button className="button btn-light" onClick={() => history.push(`/posts/${post.postId}`)}>Read more</button>
       </div>
     ))
   } else if (postsStatus === 'failed') {
     content = <div>{postsError}</div>
   }
 
-
-  // const renderPosts = posts.map(post => {
-  //   if (postsStatus === 'loading') {
-  //     return (
-  //       <LoadingIndicator/>
-  //     )
-  //   } else if (postsStatus === 'succeeded') {
-  //     return (
-  //       <div className="post-excerpt" key={post.postId}>
-  //         <h3>{post.title}</h3>
-  //         <p className="post-content">{post.content.substring(0, 100)}</p>
-  //         <Link to={`/posts/${post.postId}`}>
-  //           View Post
-  //         </Link>
-  //       </div>
-  //     )
-  //   } else if (postsStatus === 'failed') {
-  //     return (
-  //       <div>{postsError}</div>
-  //     )
-  //   }
-
-  // })
-
-  // const renderPosts = posts.map(post => (
-  //   <div className="post-excerpt" key={post.postId}>
-  //     <h3>{post.title}</h3>
-  //     <p className="post-content">{post.content.substring(0, 100)}</p>
-  //     <Link to={`/posts/${post.postId}`}>
-  //       View Post
-  //     </Link>
-  //   </div>
-  // ))
   return (
     <div className="content-container">
       {renderNewPostLink()}

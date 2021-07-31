@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 import { PostAuthor } from './PostAuthor'
 import { selectPostById } from './postsSlice'
@@ -8,18 +8,16 @@ import { selectLoggedInUser } from '../auth/authSlice'
 
 // TODO display Edit button is logged in user is the post author
 export const SinglePostPage = ({ match }) => {
+  const history = useHistory()
   const { postId } = match.params
   const user = useSelector(state => selectLoggedInUser(state))
-
   const post = useSelector(state => selectPostById(state, postId))
 
   const renderEditPostButton = () => {
     console.log(`renderEditPostButton called with, ${JSON.stringify(post, null, 2)}`);
     if(user.uid === post.userId){
       return (
-        <Link to={`/editPost/${post.postId}`}>
-          Edit Post
-        </Link>
+        <button className="button btn-main" onClick={() => history.push(`/editPost/${post.postId}`)}>Edit Post</button>
       )
     }
   }
@@ -33,7 +31,7 @@ export const SinglePostPage = ({ match }) => {
   }
   return (
     <div className="content-container">
-      <div>
+      <div className="post-container">
         <h2>{post.title}</h2>
         <p>{post.content}</p>
         {renderEditPostButton()}

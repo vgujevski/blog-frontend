@@ -8,10 +8,11 @@ html {
 }
 
 body {
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: 'Courier New', Courier, monospace;
   margin: 0;
   font-size: $m-size;
   line-height: 1.6;
+  background-color: $color-dark;
 }
 
 h1 {
@@ -29,11 +30,15 @@ h3 {
   padding: 0rem;
 }
 
+p {
+  font-size: 1.5rem;
+  padding: 0rem;
+  font-family: sans-serif;
+}
+
 button {
   cursor: pointer;
 }
-
-
 
 select {
   cursor: pointer;
@@ -47,6 +52,8 @@ button:disabled {
   font-weight: bold;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: border-box;
 }
