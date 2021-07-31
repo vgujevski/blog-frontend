@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 import { PostAuthor } from './PostAuthor'
 import { selectPostById } from './postsSlice'
@@ -15,7 +15,7 @@ export const SinglePostPage = ({ match }) => {
 
   const renderEditPostButton = () => {
     console.log(`renderEditPostButton called with, ${JSON.stringify(post, null, 2)}`);
-    if(user.uid === post.userId){
+    if(user && user.uid === post.userId){
       return (
         <button className="button btn-main" onClick={() => history.push(`/editPost/${post.postId}`)}>Edit Post</button>
       )

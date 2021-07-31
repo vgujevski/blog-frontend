@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export const AddPostForm = ({onSavePost}) => {
+export const AddPostForm = ({ onSavePost }) => {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
 
@@ -9,29 +9,35 @@ export const AddPostForm = ({onSavePost}) => {
 
   const handleSavePost = () => {
     console.log('_handleAddPost called');
-    onSavePost({title, content})
+    onSavePost({ title, content })
   }
 
   return (
-    <div>
-      <h2>Add a New Post</h2>
-      <form>
-        <label htmlFor="postTitle">Post Title:</label>
-        <input
-          type="text"
-          id="postTitle"
-          name="postTitle"
-          value={title}
-          onChange={onTitleChanged}
-        />
+    <div className="form-container">
+      <form className="input-container">
+        <div>
+          <label htmlFor="postTitle">Title:</label>
+          <input
+            type="text"
+            id="postTitle"
+            name="postTitle"
+            value={title}
+            onChange={onTitleChanged}
+          />
+        </div>
         <label htmlFor="postContent">Content:</label>
         <textarea
           id="postContent"
           name="postContent"
           value={content}
           onChange={onContentChanged}
+          placeholder="tell me your story"
+          cols="50"
+          rows="20"
         />
-        <button type="button" onClick={handleSavePost}>Save Post</button>
+        <button type="button" className="button btn-main" onClick={handleSavePost}>
+          Save Post
+        </button>
       </form>
     </div>
   )

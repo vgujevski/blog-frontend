@@ -31,28 +31,33 @@ export const EditPostForm = ({ match }) => {
 
   return (
     <div className="content-container">
-      <h2>Edit Post</h2>
-      <form>
-        <label htmlFor="postTitle">Post Title:</label>
-        <input
-          type="text"
-          id="postTitle"
-          name="postTitle"
-          placeholder="Tell me your story..."
-          value={title}
-          onChange={onTitleChanged}
-        />
-        <label htmlFor="postContent">Content:</label>
-        <textarea
-          id="postContent"
-          name="postContent"
-          value={content}
-          onChange={onContentChanged}
-        />
-      </form>
-      <button type="button" onClick={onSavePostClicked}>
-        Save Post
-      </button>
+      <div className="form-container">
+        <form className="input-container">
+          <div>
+            <label htmlFor="postTitle">Title:</label>
+            <input
+              type="text"
+              id="postTitle"
+              name="postTitle"
+              value={title}
+              onChange={onTitleChanged}
+            />
+          </div>
+          <label htmlFor="postContent">Content:</label>
+          <textarea
+            id="postContent"
+            name="postContent"
+            value={content}
+            onChange={onContentChanged}
+            placeholder="tell me your story"
+            cols="50"
+            rows="20"
+          />
+          <button type="button" className="button btn-main" onClick={onSavePostClicked}>
+            Save Post
+          </button>
+        </form>
+      </div>
     </div>
   )
 }

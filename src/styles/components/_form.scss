@@ -1,0 +1,18 @@
+.form-container {
+  background: $color-dark-accent;
+  padding: 2rem;
+  border-radius: 0.7rem;
+
+  textarea {
+    margin-bottom: 2rem;
+  }
+
+  button {
+    width: 20%;
+  }
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+}
