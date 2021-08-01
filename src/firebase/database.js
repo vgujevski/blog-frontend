@@ -29,9 +29,14 @@ export const  getAllPosts = async () => {
 //   //TODO implement
 // }
 
-// const editPost = () => {
-//   //TODO implement
-// }
+export const updatePost = async (post) => {
+  const docRef = await database.collection(POSTS).doc(post.postId).update({
+    title: post.title,
+    content: post.content
+  })
+  return docRef
+  //TODO implement
+}
 
 // const deletePost = () => {
 //   //TODO implement

@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { getAllPosts, addPost } from '../../firebase/database';
+import { getAllPosts, addPost, updatePost } from '../../firebase/database';
 
 
 const initialState = {
@@ -16,6 +16,11 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
 export const addNewPost = createAsyncThunk('posts/addPost', async (newPost) => {
   addPost(newPost)
   return newPost
+})
+
+export const editPost = createAsyncThunk('posts/updatePost', async (post) => {
+  updatePost(post)
+  return post
 })
 
 const postsSlice = createSlice({
@@ -53,6 +58,15 @@ const postsSlice = createSlice({
     },
     [addNewPost.fulfilled]: (state, action) => {
       state.items.push(action.payload)
+    },
+    [editPost.fulfilled]: (state, action) => {
+      const { postId, title, content } = action.payload
+      console.log(`payload: ${JSON.stringify(action.payload, null, 2)}`);
+      const existingPost = state.items.find(post => post.postId === postId)
+      if (existingPost) {
+        existingPost.title = title
+        existingPost.content = content
+      }
     }
   }
 })
