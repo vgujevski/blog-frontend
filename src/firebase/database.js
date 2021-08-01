@@ -35,12 +35,11 @@ export const updatePost = async (post) => {
     content: post.content
   })
   return docRef
-  //TODO implement
 }
 
-// const deletePost = () => {
-//   //TODO implement
-// }
+export const deletePost = async (postId) => {
+  await database.collection(POSTS).doc(postId).delete()
+}
 
 // Authors
 

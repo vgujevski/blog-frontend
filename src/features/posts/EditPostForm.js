@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
 
 import { selectPostById } from './postsSlice'
-import { editPost } from './postsSlice'
+import { editPost, removePost } from './postsSlice'
 
 export const EditPostForm = ({ match }) => {
   const { postId } = match.params
@@ -27,6 +27,11 @@ export const EditPostForm = ({ match }) => {
       dispatch(editPost(updatedPost))
       history.push(`/posts/${postId}`)
     }
+  }
+
+  const onDeletePostClicked = () => {
+    dispatch(removePost(postId))
+    history.push('/')
   }
 
   return (
@@ -57,6 +62,9 @@ export const EditPostForm = ({ match }) => {
             Save Post
           </button>
         </form>
+        <button className="button btn-main" onClick={onDeletePostClicked}>
+          Delete Post
+        </button>
       </div>
     </div>
   )
