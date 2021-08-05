@@ -24,7 +24,9 @@ export const PostsList = () => {
 
   const renderNewPostLink = () => (
     isAuthenticated ? (
-      <button className="button btn-main new-post-btn" onClick={() => history.push("/addPost")}>Add new post</button>
+      <button className="button btn-main new-post-btn" onClick={() => history.push("/addPost")}>
+        Add new post
+      </button>
     ) : (
       <div></div>
     )
@@ -37,7 +39,7 @@ export const PostsList = () => {
     content = <LoadingIndicator />
   } else if (postsStatus === 'succeeded') {
     // Sort posts in reverse chronological order by datetime string
-    const orderedPosts = sortByDateDesc(posts) 
+    const orderedPosts = sortByDateDesc(posts)
 
     content = orderedPosts.map(post => (
       <div className="post-container" key={post.postId}>
