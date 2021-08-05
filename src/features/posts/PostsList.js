@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 import { LoadingIndicator } from '../../components/LoadingIndicator'
 import { selectAllPosts } from './postsSlice'
 import { fetchPosts } from './postsSlice'
+import { sortByDateDesc } from '../../utility/util'
 
 export const PostsList = () => {
   const dispatch = useDispatch()
@@ -36,9 +37,7 @@ export const PostsList = () => {
     content = <LoadingIndicator />
   } else if (postsStatus === 'succeeded') {
     // Sort posts in reverse chronological order by datetime string
-    const orderedPosts = posts
-    // .slice()
-    // .sort((a, b) => b.postedOn.toISOString().localeCompare(a.postedOn.toISOString()))
+    const orderedPosts = sortByDateDesc(posts) 
 
     content = orderedPosts.map(post => (
       <div className="post-container" key={post.postId}>
