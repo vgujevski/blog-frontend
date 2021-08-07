@@ -1,7 +1,7 @@
 import React from 'react'
 import { ISOtoDDMMYY } from '../../utility/util'
 
-export const Date = ({ date }) => {
+export const DateComponent = ({ date }) => {
   return (
     <div>
       {ISOtoDDMMYY(date)}

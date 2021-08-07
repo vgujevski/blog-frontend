@@ -3,12 +3,12 @@ import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
 import { PostAuthor } from './PostAuthor'
+import { DateComponent } from './Date'
 import { selectPostById } from './postsSlice'
 import { selectLoggedInUser } from '../auth/authSlice'
 
 import { ISOtoDDMMYY } from '../../utility/util'
 
-// TODO display Edit button is logged in user is the post author
 export const SinglePostPage = ({ match }) => {
   const history = useHistory()
   const { postId } = match.params
@@ -17,7 +17,7 @@ export const SinglePostPage = ({ match }) => {
 
   const renderEditPostButton = () => {
     console.log(`renderEditPostButton called with, ${JSON.stringify(post, null, 2)}`);
-    if(user && user.uid === post.userId){
+    if (user && user.uid === post.userId) {
       return (
         <button className="button btn-main" onClick={() => history.push(`/editPost/${post.postId}`)}>Edit Post</button>
       )
@@ -25,19 +25,18 @@ export const SinglePostPage = ({ match }) => {
   }
 
   if (!post) {
-    return (
-      <div>
-        <h2>Post not found!</h2>
-      </div>
-    )
+    history.push('/')
   }
   return (
     <div className="content-container">
       <div className="post-container">
-        <h2>{post.title}</h2>
+        <div className="title-date-container">
+          <h3>{post.title}</h3>
+          <DateComponent date={post.postedOn} />
+        </div>
         <p>{post.content}</p>
         {renderEditPostButton()}
-        <PostAuthor author={post.displayName}/>
+        <PostAuthor author={post.displayName} />
         <div>{ISOtoDDMMYY(post.postedOn)}</div>
       </div>
     </div>
