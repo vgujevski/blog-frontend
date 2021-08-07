@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
+import Modal from 'react-modal'
 
 import { selectPostById } from './postsSlice'
 import { editPost, removePost } from './postsSlice'
 
+
+// TODO add form validation
+// TODO display confirmation modal when delete post button is clicked
 export const EditPostForm = ({ match }) => {
   const { postId } = match.params
 
@@ -13,6 +17,7 @@ export const EditPostForm = ({ match }) => {
 
   const [title, setTitle] = useState(post.title)
   const [content, setContent] = useState(post.content)
+  const [modalIsOpen, setModalIsOpen] = useState(false)
 
   const dispatch = useDispatch()
   const history = useHistory()
@@ -30,8 +35,19 @@ export const EditPostForm = ({ match }) => {
   }
 
   const onDeletePostClicked = () => {
+    setModalIsOpen(true)
+    // TODO display confirmation modal
+
+  }
+
+  const deletePost = () => {
+    handleCloseModal()
     dispatch(removePost(postId))
     history.push('/')
+  }
+
+  const handleCloseModal = () => {
+    setModalIsOpen(false)
   }
 
   return (
@@ -69,6 +85,22 @@ export const EditPostForm = ({ match }) => {
           </button>
         </div>
       </div>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={handleCloseModal}
+        closeTimeoutMS={200}
+        className="modal">
+
+        <div className="modal-container">
+          <div className="modal-title">Confirm</div>
+          <div className="modal-body">This post will be permanently deleted.</div>
+          <div className="modal-button-container">
+            <button className="button btn-main" onClick={deletePost}>Delete Post</button>
+            <button className="button btn-light" onClick={handleCloseModal}>Cancel</button>
+          </div>
+        </div>
+
+      </Modal>
     </div>
   )
 }

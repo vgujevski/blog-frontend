@@ -1,0 +1,25 @@
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.modal-title {
+  font-weight: 500;
+  word-break: break-all;
+  color: $color-light;
+}
+
+.modal-body {
+  font-weight: 300;
+  font-size: $font-size-medium;
+  color: $color-light;
+  margin: 0 0 2rem 0;
+  word-break: break-all;
+}
+
+.modal-button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
