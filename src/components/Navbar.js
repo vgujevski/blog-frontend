@@ -7,7 +7,7 @@ import homeLogo from '../images/home_logo_white_48dp.png'
 export const Navbar = () => {
 
   return (
-    <div className="content-container">
+    <div className="content-container bg-pattern">
       <div className="navbar">
         <Link to="/"><img className="logo" src={homeLogo} alt="home"/></Link>
         <LoginButton />

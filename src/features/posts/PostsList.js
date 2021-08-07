@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
 import { LoadingIndicator } from '../../components/LoadingIndicator'
+import { PostExcerpt } from './PostExcerpt'
 import { selectAllPosts } from './postsSlice'
 import { fetchPosts } from './postsSlice'
 import { sortByDateDesc } from '../../utility/util'
@@ -42,11 +43,7 @@ export const PostsList = () => {
     const orderedPosts = sortByDateDesc(posts)
 
     content = orderedPosts.map(post => (
-      <div className="post-container" key={post.postId}>
-        <h3>{post.title}</h3>
-        <p className="post-content">{post.content.substring(0, 500)}...</p>
-        <button className="button btn-light" onClick={() => history.push(`/posts/${post.postId}`)}>Read more</button>
-      </div>
+      <PostExcerpt post={post}/>
     ))
   } else if (postsStatus === 'failed') {
     content = <div>{postsError}</div>

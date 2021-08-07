@@ -58,13 +58,16 @@ export const EditPostForm = ({ match }) => {
             cols="50"
             rows="20"
           />
+
+        </form>
+        <div className="button-container">
           <button type="button" className="button btn-main" onClick={onSavePostClicked}>
             Save Post
           </button>
-        </form>
-        <button className="button btn-main" onClick={onDeletePostClicked}>
-          Delete Post
-        </button>
+          <button className="button btn-main" onClick={onDeletePostClicked}>
+            Delete Post
+          </button>
+        </div>
       </div>
     </div>
   )
