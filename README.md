@@ -13,7 +13,7 @@ You will need to provide your own firebase config file.
  - Follow process described on firebase documentation [page](https://firebase.google.com/docs/web/setup?authuser=0) to get config object
 
 ```
-// firebase config object
+// contents of firebase-vars.js
 const firebaseVars = {
   apiKey: "YOUR_apiKey",
   authDomain: "YOUR_authDomain",
