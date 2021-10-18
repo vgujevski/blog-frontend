@@ -2,6 +2,7 @@ import { database } from '../firebase/config'
 
 const POSTS = 'posts'
 const USERS = 'users'
+const COMMENTS = 'comments'
 
 export const addPost = async (post) => {
   console.log('addPost Database called ', JSON.stringify(post, null, 2));
@@ -52,5 +53,28 @@ export const getAllUsers = async () => {
   })
 
   return users
+}
+
+// Comments 
+
+export const findCommentById = async (id) => {
+  //const snapshot = await database.collection(COMMENTS).doc(id).get
+}
+
+export const addComment = async (comment) => {
+  await database.collection(COMMENTS).doc(comment.commentId).set(comment)
+  return comment
+}
+
+export const getAllComments = async () => {
+  const snapshot = await database.collection(COMMENTS).get()
+  const comments =  snapshot.docs.map(doc => {
+    return {commentId: doc.id, ...doc.data()}
+  }) 
+  return comments
+}
+
+export const deleteComment = () => {
+  
 }
 
