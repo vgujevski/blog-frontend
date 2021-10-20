@@ -74,7 +74,7 @@ export const getAllComments = async () => {
   return comments
 }
 
-export const deleteComment = () => {
-  
+export const deleteComment = async (commentId) => {
+  database.collection(COMMENTS).doc(commentId).delete()
 }
 
