@@ -5,6 +5,7 @@ import { AppRouter } from './routers/AppRouter'
 import { firebase } from './firebase/config'
 import { userLoggedIn, userLoggedOut } from './features/auth/authSlice'
 import { fetchUsers } from './features/users/usersSlice'
+import { fetchComments } from './features/comments/commentsSlice'
 
 export const App = () => {
   const dispatch = useDispatch()
@@ -22,6 +23,7 @@ export const App = () => {
   })
 
   dispatch(fetchUsers())
+  dispatch(fetchComments())
 
   return (
     <AppRouter />
