@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom'
 import { PostAuthor } from './PostAuthor'
 import { DateComponent } from './Date'
 import { selectPostById } from './postsSlice'
+import { CommentsSection } from '../comments/CommentSection'
 import { selectLoggedInUser } from '../auth/authSlice'
 
 import { ISOtoDDMMYY } from '../../utility/util'
@@ -38,6 +39,9 @@ export const SinglePostPage = ({ match }) => {
         {renderEditPostButton()}
         <PostAuthor author={post.displayName} />
         <div>{ISOtoDDMMYY(post.postedOn)}</div>
+        <div>
+          <CommentsSection/>
+        </div>
       </div>
     </div>
   )

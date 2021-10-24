@@ -9,7 +9,6 @@ export const AddComment = () => {
   return(
     <div>
       New Comments from
-      <button onClick={handleSubmit}>Save</button>
     </div>
   )
 }
