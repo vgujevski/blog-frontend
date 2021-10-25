@@ -40,7 +40,7 @@ export const SinglePostPage = ({ match }) => {
         <PostAuthor author={post.displayName} />
         <div>{ISOtoDDMMYY(post.postedOn)}</div>
         <div>
-          <CommentsSection/>
+          <CommentsSection postId={postId}/>
         </div>
       </div>
     </div>
