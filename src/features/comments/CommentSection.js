@@ -2,11 +2,11 @@ import React from 'react'
 import { AddComment } from './AddComment'
 import { ListComments } from './ListComments'
 
-export const CommentsSection = () => {
+export const CommentsSection = ({postId}) => {
   return(
     <div>
       <AddComment/>
-      <ListComments/>
+      <ListComments postId={postId}/>
     </div>
   )
 }

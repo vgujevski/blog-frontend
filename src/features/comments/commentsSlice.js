@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, createEntityAdapter } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createEntityAdapter, createSelector } from "@reduxjs/toolkit";
 import { getAllComments, addComment } from "../../firebase/database";
 
 const commentsAdapter = createEntityAdapter({
@@ -38,3 +38,16 @@ const commentsSlice = createSlice({
 })
 
 export default commentsSlice.reducer
+
+export const {
+  selectAll: selectAllComments,
+  selectById: selectCommentById,
+  selectIds: selectCommentIds,
+} = commentsAdapter.getSelectors((state) => state.comments)
+
+export const selectPostComments = createSelector(
+  [selectAllComments, (state, postId) => postId],
+  (comments, postId) => comments.filter((comment) => comment.postId === postId)
+)
+
+
