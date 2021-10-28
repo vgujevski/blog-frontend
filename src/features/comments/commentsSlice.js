@@ -23,7 +23,7 @@ const commentsSlice = createSlice({
       state.status = 'loading'
     },
     [fetchComments.fulfilled]: (state, action) => {
-      state.status = 'succeeded'
+      //state.status = 'succeeded'
       commentsAdapter.upsertMany(state, action.payload)
     },
     [fetchComments.rejected]: (state, action) => {
@@ -32,7 +32,8 @@ const commentsSlice = createSlice({
     },
     [saveComment.fulfilled]: (state, action) => {
       state.status = 'succeeded'
-      commentsAdapter.addOne(action.payload)
+      commentsAdapter.addOne(state, action.payload)
+      console.log(JSON.stringify(action.payload, null, 2));
     }
   }
 })

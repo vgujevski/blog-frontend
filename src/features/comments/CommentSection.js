@@ -5,7 +5,7 @@ import { ListComments } from './ListComments'
 export const CommentsSection = ({postId}) => {
   return(
     <div>
-      <AddComment/>
+      <AddComment postId={postId}/>
       <ListComments postId={postId}/>
     </div>
   )

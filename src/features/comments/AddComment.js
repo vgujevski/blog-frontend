@@ -1,16 +1,27 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup'
+import { v4 as uuid } from 'uuid'
 
 import { selectLoggedInUser } from '../auth/authSlice';
+import { saveComment } from './commentsSlice';
 
-export const AddComment = () => {
+export const AddComment = ({postId}) => {
 
   const user = useSelector(state => selectLoggedInUser(state))
+  const dispatch = useDispatch()
 
-  const handleSubmit = () => {
-    console.log('submit clicked');
+  const commentedOn = new Date().toString()
+
+  const onSubmitClicked = (text) => {
+    dispatch(saveComment({
+      commentId: uuid(),
+      author: user.uid,
+      commentedOn,
+      postId,
+      content: text
+    }))
   }
 
   return (
@@ -26,7 +37,7 @@ export const AddComment = () => {
               comment: Yup.string().max(100, 'Must be 100 characters or less').required('required')
             })}
             onSubmit={(values) => {
-              console.log('new Comment: ', JSON.stringify(values, null, 2));
+              onSubmitClicked(values.comment)
             }}
           >
             <Form>
