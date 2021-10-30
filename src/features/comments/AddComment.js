@@ -22,6 +22,7 @@ export const AddComment = ({postId}) => {
       postId,
       content: text
     }))
+    
   }
 
   return (
@@ -36,8 +37,9 @@ export const AddComment = ({postId}) => {
             validationSchema={Yup.object({
               comment: Yup.string().max(100, 'Must be 100 characters or less').required('required')
             })}
-            onSubmit={(values) => {
+            onSubmit={(values, { resetForm }) => {
               onSubmitClicked(values.comment)
+              resetForm({values: ''})
             }}
           >
             <Form>
