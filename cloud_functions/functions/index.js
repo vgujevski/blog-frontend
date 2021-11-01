@@ -49,3 +49,34 @@ exports.addNewComment = functions.firestore
             functions.logger.info(error);
           });
     });
+
+exports.deleteComment = functions.firestore
+    .document("comments/{commentId}")
+    .onDelete((snapshot, context) => {
+      admin.initializeApp();
+      const deletedComment = snapshot.data();
+      // remove commentId from posts/{postId}/comments
+      admin.firestore()
+          .collection("posts")
+          .doc(deletedComment.postId)
+          .update({
+            comments:
+          admin.firestore.FieldValue.arrayRemove(deletedComment.commentId),
+          })
+          .then((res) => functions.logger.info(res))
+          .catch((error) => {
+            functions.logger.info(error);
+          });
+      // remove commentId from users/{userId}/comments
+      admin.firestore()
+          .collection("users")
+          .doc(deletedComment.author)
+          .update({
+            comments:
+            admin.firestore.FieldValue.arrayRemove(deletedComment.commentId),
+          })
+          .then((res) => functions.logger.info(res))
+          .catch((error) => {
+            functions.logger.info(error);
+          });
+    });
