@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, createEntityAdapter, createSelector } from "@reduxjs/toolkit";
-import { getAllComments, addComment } from "../../firebase/database";
+import { getAllComments, addComment, deleteComment } from "../../firebase/database";
 
 const commentsAdapter = createEntityAdapter({
   selectId: (comment) => comment.commentId
@@ -13,6 +13,11 @@ export const fetchComments = createAsyncThunk('comments/fetchComments', async ()
 export const saveComment = createAsyncThunk('comments/addComment', async (newComment) => {
   const comment = await addComment(newComment)
   return comment
+})
+
+export const deleteCommentById = createAsyncThunk('comments/deleteCommentById', async (commentId) => {
+  await deleteComment(commentId)
+  return commentId
 })
 
 const commentsSlice = createSlice({
@@ -34,6 +39,10 @@ const commentsSlice = createSlice({
       state.status = 'succeeded'
       commentsAdapter.addOne(state, action.payload)
       console.log(JSON.stringify(action.payload, null, 2));
+    },
+    [deleteCommentById.fulfilled]: (state, action) => {
+      state.status = 'succeeded'
+      commentsAdapter.removeOne(state, action.payload)
     }
   }
 })
