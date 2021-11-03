@@ -1,73 +1,133 @@
-import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import PropTypes from 'prop-types'
-import { DateComponent } from '../posts/Date'
-import Modal from 'react-modal'
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import PropTypes from "prop-types";
+import { DateComponent } from "../posts/Date";
+import Modal from "react-modal";
 
-import { deleteCommentById } from './commentsSlice'
-import { selectCommentById } from './commentsSlice'
-import { selectUserById } from '../users/usersSlice'
-import { selectLoggedInUser } from '../auth/authSlice'
+import { deleteCommentById } from "./commentsSlice";
+import { editComment } from "./commentsSlice";
+import { selectCommentById } from "./commentsSlice";
+import { selectUserById } from "../users/usersSlice";
+import { selectLoggedInUser } from "../auth/authSlice";
 
 export const Comment = ({ commentId }) => {
-
-  const dispatch = useDispatch()
-  const [modalIsOpen, setModalIsOpen] = useState(false)
-  const { author: authorId, commentedOn, content } = useSelector(state => selectCommentById(state, commentId))
-  const { displayName } = useSelector(state => selectUserById(state, authorId))
-  const loggedInUser = useSelector(selectLoggedInUser)
+  const dispatch = useDispatch();
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [isEditable, setIsEditable] = useState(false);
+  const {
+    author: authorId,
+    commentedOn,
+    content,
+  } = useSelector((state) => selectCommentById(state, commentId));
+  const { displayName } = useSelector((state) =>
+    selectUserById(state, authorId)
+  );
+  const loggedInUser = useSelector(selectLoggedInUser);
+  const [editableContent, setEditableContent] = useState(content);
 
   const onDeleteClicked = () => {
-    setModalIsOpen(true)
-  }
+    setModalIsOpen(true);
+  };
+
+  const onEditClicked = () => {
+    setIsEditable(true);
+  };
 
   const handleCloseModal = () => {
-    setModalIsOpen(false)
-  }
+    setModalIsOpen(false);
+  };
 
   const deleteComment = () => {
-    dispatch(deleteCommentById(commentId))
-    handleCloseModal()
-  }
+    dispatch(deleteCommentById(commentId));
+    handleCloseModal();
+  };
 
-  const renderDeleteButton = () => {
+  const onCancelEditClicked = () => {
+    setIsEditable(false);
+  };
+
+  const onSaveEditClicked = () => {
+    dispatch(
+      editComment({
+        commentId,
+        content: editableContent,
+        isEdited: true,
+        editedOn: new Date().toString(),
+      })
+    );
+    setIsEditable(false);
+  };
+
+  const renderDeleteEditButtons = () => {
     if (loggedInUser && loggedInUser.uid === authorId) {
-      return (
-        <button className="button btn-main" onClick={onDeleteClicked}>Delete Comment</button>
-      )
+      if (isEditable) {
+        return (
+          <div>
+            <button className="button btn-main" onClick={onCancelEditClicked}>
+              Cancel
+            </button>
+            <button className="button btn-main" onClick={onSaveEditClicked}>
+              Save
+            </button>
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            <button className="button btn-main" onClick={onDeleteClicked}>
+              Delete
+            </button>
+            <button className="button btn-main" onClick={onEditClicked}>
+              Edit
+            </button>
+          </div>
+        );
+      }
     }
-  }
+  };
 
   const renderConfirmationModal = () => (
     <Modal
       isOpen={modalIsOpen}
       onRequestClose={handleCloseModal}
       closeTimeoutMS={200}
-      className="modal">
-
+      className="modal"
+    >
       <div className="modal-container">
         <div className="modal-title">Confirm</div>
-        <div className="modal-body">This comment will be permanently deleted.</div>
+        <div className="modal-body">
+          This comment will be permanently deleted.
+        </div>
         <div className="modal-button-container">
-          <button className="button btn-main" onClick={deleteComment}>Delete Comment</button>
-          <button className="button btn-light" onClick={handleCloseModal}>Cancel</button>
+          <button className="button btn-main" onClick={deleteComment}>
+            Delete Comment
+          </button>
+          <button className="button btn-light" onClick={handleCloseModal}>
+            Cancel
+          </button>
         </div>
       </div>
     </Modal>
-  )
+  );
 
   return (
     <div>
-      <h3>{content}</h3>
+      {isEditable ? (
+        <input
+          onChange={(e) => setEditableContent(e.target.value)}
+          value={editableContent}
+        />
+      ) : (
+        <h3>{content}</h3>
+      )}
       <p>by {displayName}</p>
       <DateComponent date={commentedOn} />
-      {renderDeleteButton()}
+      {renderDeleteEditButtons()}
       {renderConfirmationModal()}
     </div>
-  )
-}
+  );
+};
 
 Comment.propTypes = {
-  commentId: PropTypes.string.isRequired
-}
-
+  commentId: PropTypes.string.isRequired,
+};
