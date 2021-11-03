@@ -38,14 +38,8 @@ export const Comment = ({ commentId }) => {
     }
   }
 
-  return (
-    <div>
-      <h3>{content}</h3>
-      <p>by {displayName}</p>
-      <DateComponent date={commentedOn} />
-      {renderDeleteButton()}
-
-      <Modal
+  const renderConfirmationModal = () => (
+    <Modal
       isOpen={modalIsOpen}
       onRequestClose={handleCloseModal}
       closeTimeoutMS={200}
@@ -59,8 +53,16 @@ export const Comment = ({ commentId }) => {
           <button className="button btn-light" onClick={handleCloseModal}>Cancel</button>
         </div>
       </div>
-
     </Modal>
+  )
+
+  return (
+    <div>
+      <h3>{content}</h3>
+      <p>by {displayName}</p>
+      <DateComponent date={commentedOn} />
+      {renderDeleteButton()}
+      {renderConfirmationModal()}
     </div>
   )
 }
