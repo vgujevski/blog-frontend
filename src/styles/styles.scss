@@ -1,18 +1,19 @@
 // base
-@import './base//settings';
-@import './base/base';
+@import "./base//settings";
+@import "./base/base";
 
 // components
-@import './components/content-container';
-@import './components/navbar';
-@import './components/loading-indicator';
-@import './components/post';
-@import './components/form';
-@import './components//posts-list';
-@import './components/confirmation-modal';
-@import './components/auth-container';
+@import "./components/content-container";
+@import "./components/navbar";
+@import "./components/loading-indicator";
+@import "./components/post";
+@import "./components/form";
+@import "./components//posts-list";
+@import "./components/confirmation-modal";
+@import "./components/auth-container";
+@import "./components/comments";
 
 // utility
-@import './utility/button';
-@import './utility/text';
-@import './utility//modal';
+@import "./utility/button";
+@import "./utility/text";
+@import "./utility//modal";

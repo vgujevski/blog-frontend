@@ -1,10 +1,6 @@
-import React from 'react'
-import { ISOtoDDMMYY } from '../../utility/util'
+import React from "react";
+import { ISOtoDDMMYY } from "../../utility/util";
 
-export const DateComponent = ({ date }) => {
-  return (
-    <div>
-      {ISOtoDDMMYY(date)}
-    </div>
-  )
-}
+export const DateComponent = ({ date, className }) => {
+  return <div className={className}>{ISOtoDDMMYY(date)}</div>;
+};

@@ -3,14 +3,37 @@
   color: $color-light;
   padding: 1rem;
   border: none;
-  border-radius: 0.3rem;
-  margin-bottom: 2rem;
+  border-radius: $border-radius;
+  margin-bottom: 2.5rem;
+  box-shadow: $box-shadow;
 
-
-  .title-date-container {
+  .title-container {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+
+    .title {
+      margin-bottom: $s-size;
+    }
+
+    .date-author-container {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: $s-size;
+    }
   }
+
+  p {
+    margin-bottom: 2rem;
+  }
+
+  button {
+    margin-bottom: 2rem;
+  }
+}
+
+.date {
+  margin-right: $s-size;
 }

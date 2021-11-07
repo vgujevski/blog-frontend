@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
-import { DateComponent } from "../posts/Date";
-import Modal from "react-modal";
+import ReactTimeAgo from "react-time-ago";
 
+import Modal from "react-modal";
 import { deleteCommentById } from "./commentsSlice";
 import { editComment } from "./commentsSlice";
 import { selectCommentById } from "./commentsSlice";
@@ -111,17 +111,21 @@ export const Comment = ({ commentId }) => {
   );
 
   return (
-    <div>
+    <div className="comment">
+      <div className="name-date-container">
+        <div className="username">{displayName}</div>
+        <div className="dot" />
+        <ReactTimeAgo date={commentedOn} locale="en-US" />
+      </div>
       {isEditable ? (
         <input
           onChange={(e) => setEditableContent(e.target.value)}
           value={editableContent}
         />
       ) : (
-        <h3>{content}</h3>
+        <p>{content}</p>
       )}
-      <p>by {displayName}</p>
-      <DateComponent date={commentedOn} />
+
       {renderDeleteEditButtons()}
       {renderConfirmationModal()}
     </div>
