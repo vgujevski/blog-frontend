@@ -16,6 +16,17 @@
   color: $color-dark;
 }
 
+.icon-button {
+  height: $l-size;
+  width: $l-size;
+  background-color: $color-main-accent;
+  border-radius: $border-radius;
+  margin: 0;
+  &:hover {
+    box-shadow: $box-shadow;
+  }
+}
+
 .btn-main {
   background-color: $color-main-accent;
   color: $color-dark;

@@ -29,7 +29,6 @@ export const AddComment = ({ postId }) => {
 
   return (
     <div>
-      New Comment
       {!user ? (
         <div>You need to be logged in to leave comments</div>
       ) : (
